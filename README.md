@@ -17,7 +17,7 @@
  * 数据库访问
    * flask-sqlalchemy
    * 七牛sdk
- *  web框架
+ * web框架
    * flask
    
  界面展示
