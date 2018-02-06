@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>detial</title>
+    <link rel="stylesheet" href="/static/css/detail.css" type="text/css" />
+</head>
+<body>
+
+
+<div class="page-main clearfix">
+    <article>
+        <div class="pic-wrapper">
+            <img src="{{image.url}}?imageView/1/w/600/h/600">
+        </div>
+        <div class="pic-discuss">
+            <header class="discuss-hd">
+                <a href="/profile/{{image.user.id}}" class="avatar">
+                    <img src="{{image.user.head_url}}">
+                </a>
+                <div class="profile-info">
+                    <a title="{{image.user.username}}" href="/profile/{{image.user.id}}">{{image.user.username}}</a>
+                </div>
+            </header>
+            <ul class="discuss-list js-discuss-list">
+
+                {% for comment in comments%}
+                <li>
+                    <a class="_4zhc5 _iqaka" title="{{comment.user.username}}" href="/profile/{{comment.user.id}}">{{comment.user.username}}</a>
+                    <span>
+                        <span>{{comment.content}}</span>
+                    </span>
+                </li>
+                {% endfor %}
+            </ul>
+            <section class="discuss-edit">
+                <a class="icon-heart-empty"></a>
+                <input placeholder="添加评论..." id="jsCmt" type="text">
+                <button class="more-info" id="jsSubmit">更多选项</button>
+            </section>
+        </div>
+    </article>
+</div>
+<script type="text/javascript">
+    window.imageId ={{image.id}};
+</script>
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+<script type="text/javascript" src="/static/js/detail.js"></script>
+</body>

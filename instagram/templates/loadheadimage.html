@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html class="js logged-in client-root" lang="zh-cn"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>
+Instagram
+</title>
+<link rel="stylesheet" href="/static/css/loadhead.css" type="text/css" />
+</head>
+    <body class="">
+    <span id="react-root"><div class="_1arne">
+        <header class="_sq5zx">
+              <h1 class="_52qm9"><div class="_k6tlx coreSpriteMobileNavTypeLogo"></div></h1>
+        </header>
+        <div class="_jmaf6" style="left: 0%;">
+          <div class="_eeb72">
+            <section class="_9vdhe">
+                   <div class="_48m77">
+                     <div class="_g4jnt"><span class="coreSpriteNullProfile"><image src='/static/image/head.png'></span></div>
+                     <div class="_iyls6">添加头像</div>
+                     <div class="_ewfrk">添加头像，方便好友找到你。</div>
+                       <span class="_ov9ai"><button id="add" class="_qv64e _gexxb _4tgw8 _njrw0">添加头像</button></span>
+                   </div>
+            </section>
+              <form enctype="multipart/form-data" action="/loadhead/" method="post">
+                  <input name="file" id="inputfile" type="file" accept="image/jpeg" onchange ="uploadFile()" class="_l8al6">
+                    <input id="sub"  class="_l8al6" type="submit">
+              </form>
+        <button class="_3lxsg">跳过</button>
+    </div>
+    </div>
+  </span>
+  </body>
+<script>
+    var oBtn = document.getElementById('add');
+    oBtn.onclick = function(){
+    alert('22')
+        var inputfile=document.getElementById('inputfile');
+
+        inputfile.click()
+    };
+   function  uploadFile()
+   {
+      alert('123')
+       var bt=document.getElementById('sub');
+       bt.click();
+   }
+</script>
+  </html>
+    
