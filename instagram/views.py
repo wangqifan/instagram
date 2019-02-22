@@ -8,7 +8,7 @@ from instagram.qiniusdk import qiniu_upload_file
 # 首页
 
 @app.route('/')
-@login_required
+@login_required          # 需要登陆才能访问
 def index():
     images = Image.query.order_by(db.desc(Image.id)).limit(10).all()
     return render_template('index.html',images=images)
@@ -48,7 +48,7 @@ def reg():
         return redirect(next)
     return redirect('/loadhead/')                        # 跳转到加载头像页面
 
-# 访问登陆页面
+# 访问登陆页面，注册也是这个页面
 
 @app.route('/login/',methods={'get','post'})
 def login():
@@ -164,11 +164,11 @@ def user_images(user_id, page, per_page):
 @app.route('/addcomment/', methods={'post'})
 @login_required
 def add_comment():
-    image_id = int(request.values['image_id'])
-    content = request.values['content']
-    comment = Comment(content, image_id, current_user.id)
+    image_id = int(request.values['image_id'])     # 获取图片ID
+    content = request.values['content']            # 获取评论内容
+    comment = Comment(content, image_id, current_user.id)  # 生产评论对象
     db.session.add(comment)
-    db.session.commit()
+    db.session.commit()                                    # 插入数据库
     return json.dumps({"code":0, "id":comment.id,
                        "content":comment.content,
                        "username":comment.user.username,
