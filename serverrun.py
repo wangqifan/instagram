@@ -1,2 +1,5 @@
 from instagram import app       # 引入app对象
-app.run(debug=True)             # 运行app
+
+
+if __name__ == "__main__":    
+    app.run(debug=True)             # 运行app

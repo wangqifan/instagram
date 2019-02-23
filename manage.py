@@ -9,5 +9,5 @@ def init_datebase():
     db.create_all()       # 重建表
 
 
-print('23')
-init_datebase()
+if __name__ == "__main__":
+    init_datebase()
