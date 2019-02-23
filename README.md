@@ -3,14 +3,13 @@
 
 
 
-项目介绍
-------
+## 项目介绍
    使用flask仿instagram,阉割了很多功能
    
    
    
- 所用技术
---
+## 所用技术
+
  * 数据库
     * sqlite
     * 七牛云
@@ -22,11 +21,20 @@
  * 测试
    * unittest 
    
- 界面展示
----------
+## 安装依赖
 
-<image src="https://github.com/wangqifan/instagram/blob/master/loadheadpictureclone.png" width=500>
+~~~
+        pip install -r requirements.txt
+~~~
    
-<image src="https://github.com/wangqifan/instagram/blob/master/loginclone.png" width=500>
-   
-   
+## 重建数据库
+
+~~~
+        python manage.py
+~~~
+
+## 运行web App 
+
+~~~
+        python serverrun.py
+~~~
