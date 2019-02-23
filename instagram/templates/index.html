@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>instagram</title>
     <link rel="stylesheet" href="/static/css/index.css" type="text/css" />
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/js/home.js"></script>
 </head>
 <body>
     <div class="page-main clearfix">
@@ -25,6 +27,22 @@
                 </a>
             </div>
         </div>
+        <div class="votebar">
+            {% if image.likecount > 0 %}
+            <div>
+                <button class="click-like up pressed" title="赞同" data="{{  image.id }}"><i class="vote-arrow"></i><span class="like-count-{{ image.id }}" >{{ image.likecount }}</span></button>
+            </div>
+            {% else %}
+            <div>
+                <button class="click-like up"  title="赞同"   data="{{  image.id }}"><i class="vote-arrow"></i><span class="like-count-{{ image.id }}">{{ image.likecount }}</span></button>
+            </div>
+            {% endif %}
+        
+            <div>
+                <button class="click-dislike down pressed"  title="反对"   data="{{  image.id }}"><i class="vote-arrow"></i></button>
+            </div>
+
+        </div>
         <div class="mod-ft">
             <ul class="discuss-list">
                 <li class="more-discuss">
@@ -42,13 +60,7 @@
                 {% endfor %}
             </ul>
 
-            <section class="discuss-edit">
-                <a class="icon-heart"></a>
-                <form>
-                    <input placeholder="添加评论..." type="text">
-                </form>
-                <button class="more-info">更多选项</button>
-            </section>
+           
         </div>
     </article>
     {% endfor %}

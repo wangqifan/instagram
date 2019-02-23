@@ -7,7 +7,7 @@ access_key = app.config['QINIU_ACCESS_KEY']
 secret_key = app.config['QINIU_SECRET_KEY']
 #构建鉴权对象
 q = Auth(access_key, secret_key)
-#要上传的空间
+#要上传的空间 bucket
 bucket_name = app.config['QINIU_BUCKET_NAME']
 domain_prefix = app.config['QINIU_DOMAIN']
 
@@ -17,5 +17,5 @@ def qiniu_upload_file(source_file, save_file_name,length):
 
     ret, info = put_stream(token, save_file_name, source_file.stream,save_file_name,length)
     if info.status_code == 200:
-        return domain_prefix + save_file_name
+        return domain_prefix + save_file_name  # 域名+文件名就是图片链接
     return None

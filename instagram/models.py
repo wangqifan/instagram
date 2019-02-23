@@ -31,12 +31,16 @@ class Image(db.Model):
     url=db.Column(db.String(512))
     user_id=db.Column(db.Integer,db.ForeignKey('user.id'))
     created_date=db.Column(db.DateTime)
+    likecount=db.Column(db.Integer)
+    # dislikecount=db.Column(db.Integer) 不统计踩的数目
     comments=db.relationship('Comment')
 
     def __init__(self,url,user_id):
         self.url=url
         self.user_id=user_id
         self.created_date=datetime.now()
+        self.likecount = 0
+        self.dislikecount = 0
 
     def __repr__(self):
         return  '<Image%d %s>' % (self.id, self.url)

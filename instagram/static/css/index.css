@@ -133,3 +133,89 @@
     border: none;
     width: 484px;
 }
+
+/*赞成and反对*/
+.votebar {
+    float: left;
+    margin-right: 18px;
+    margin-top: 5px;
+}
+.votebar.keep-top{
+    position: fixed;
+    top: 60px;
+}
+.votebar .up,
+.votebar .down {
+    background: #eff6fa;
+    border: none;
+    border-radius: 3px;
+    color: #25bb9b;
+    cursor: pointer;
+    display: block;
+    font-weight: 500;
+    height: 24px;
+    line-height: 24px;
+    position: relative;
+    width: 38px;
+    outline: none;
+}
+.votebar .up {
+    height: 44px;
+}
+.votebar .label {
+    display: block;
+    text-indent: -9999em;
+}
+.votebar .count {
+    left: 0;
+    position: absolute;
+    top: 18px;
+    top: 10px\9;
+    *top: 18px;
+    width: 100%;
+    /*line-height: 22px;*/
+    display: block;
+}
+.votebar .vote-arrow {
+    display: inline-block;
+    border: 6px solid transparent;
+    font-size: 0;
+    height: 0;
+    width: 0;
+}
+.votebar .up .vote-arrow {
+    border-bottom-color: #25bb9b;
+    border-top-style: solid;
+    border-top-width: 0;
+    margin-bottom: 10px;
+}
+.votebar .up:hover .vote-arrow,
+.votebar .up.pressed .vote-arrow {
+    border-bottom-color: #FFF;
+}
+.votebar .down .vote-arrow {
+    border-bottom-width: 0;
+    border-top-color: #25bb9b;
+}
+.votebar .down:hover .vote-arrow,
+.votebar .down.pressed .vote-arrow {
+    border-top-color: #fff;
+}
+.votebar .up:hover,
+.votebar .down:hover,
+.votebar .up.pressed,
+.votebar .down.pressed {
+    background: #25bb9b;
+    color: #fff;
+}
+.votebar .down {
+    margin: 5px 0 0;
+}
+.votebar .rcmd-label {
+    color: #fff;
+    background: #E54E38;
+    padding: 2px 5px;
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+}

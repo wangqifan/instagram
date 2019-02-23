@@ -4,6 +4,7 @@ from flask import render_template, redirect, request, flash, get_flashed_message
 from flask_login import login_user, logout_user, current_user, login_required
 import random, hashlib, json, uuid, os
 from instagram.qiniusdk import qiniu_upload_file
+from instagram.likeService import like, dislike
 
 # 首页
 
@@ -173,3 +174,23 @@ def add_comment():
                        "content":comment.content,
                        "username":comment.user.username,
                        "user_id":comment.user_id})
+
+
+# 点赞功能
+
+@app.route('/like/', methods={'post'})
+@login_required
+def addlike():
+    image_id = int(request.values['image_id'])     # 获取图片ID
+    id = current_user.id
+    likeount = like(image_id, UserID=id)
+    return json.dumps({"code":0, "message":likeount})
+
+# 踩
+@app.route('/dislike/', methods={'post'})
+@login_required
+def adddislike():
+    image_id = int(request.values['image_id'])     # 获取图片ID
+    id = current_user.id
+    likecount = dislike(image_id, UserID=id)
+    return json.dumps({"code":0, "message":likecount})
