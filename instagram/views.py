@@ -6,13 +6,22 @@ import random, hashlib, json, uuid, os
 from instagram.qiniusdk import qiniu_upload_file
 from instagram.likeService import like, dislike
 from instagram.followService import follow, unfollow, isfollow, getfollowed, getfollowing
+
 # 首页
 
 @app.route('/')
 @login_required          # 需要登陆才能访问
 def index():
+    return render_template('home.html', userid= current_user.id)
+
+
+
+# 发现
+@app.route('/Discover/')
+@login_required          # 需要登陆才能访问
+def Discover():
     images = Image.query.order_by(db.desc(Image.id)).limit(10).all()
-    return render_template('index.html',images=images)
+    return render_template('feed.html',images=images)
 
 # 图片详情页
 
@@ -242,3 +251,17 @@ def follows():
         print(user)
         foll.append(user)
     return render_template('following.html',followings=foll)
+
+
+# TimeLine
+@app.route('/TimeLine/', methods={'get'})
+@login_required
+def TimeLine():
+    id = current_user.id
+    followings =   getfollowing(id)
+    foll = []
+    for f in followings:
+        foll.append(int(f))
+    foll.append(id)
+    images = Image.query.filter(Image.user_id.in_(foll)).order_by(db.desc(Image.id)).limit(10).all()
+    return render_template('feed.html',images=images)
