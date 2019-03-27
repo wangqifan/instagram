@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>following</title>
+    <link rel="stylesheet" href="/static/css/index.css" type="text/css" />
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/js/home.js"></script>
+</head>
+<body>
+    <div class="page-main clearfix">
+    {% for follow in followings %}
+    <article class="mod">
+        <header class="mod-hd">
+            <a href="/profile/{{follow.id}}" class="avatar">
+                <img src="{{follow.head_url}}">
+            </a>
+            <div class="profile-info">
+                <a title="{{follow.username}}" href="/profile/{{follow.id}}">{{follow.username}}</a>
+            </div>
+        </header>
+    </article>
+    {% endfor %}
+</div>
+</body>
+</html>

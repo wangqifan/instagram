@@ -1,11 +1,11 @@
 from instagram import  app,db
-from instagram.models import Image,User,Comment
+from instagram.models import Image, User, Comment, load_user
 from flask import render_template, redirect, request, flash, get_flashed_messages, send_from_directory
 from flask_login import login_user, logout_user, current_user, login_required
 import random, hashlib, json, uuid, os
 from instagram.qiniusdk import qiniu_upload_file
 from instagram.likeService import like, dislike
-
+from instagram.followService import follow, unfollow, isfollow, getfollowed, getfollowing
 # 首页
 
 @app.route('/')
@@ -119,7 +119,8 @@ def profile(user_id):
     if user == None:
         return redirect('/')
     paginate = Image.query.filter_by(user_id=user_id).order_by(db.desc(Image.id)).paginate(page=1, per_page=3, error_out=False)
-    return render_template('profile.html', user=user, images=paginate.items, has_next=paginate.has_next)
+    isfollowed = isfollow(user_id, current_user.id)
+    return render_template('profile.html', user=user, images=paginate.items, has_next=paginate.has_next, isfollowed = isfollowed)
 
 # 上传一条动态
 
@@ -194,3 +195,50 @@ def adddislike():
     id = current_user.id
     likecount = dislike(image_id, UserID=id)
     return json.dumps({"code":0, "message":likecount})
+
+# 关注
+@app.route('/follow/', methods={'post','get'})
+@login_required
+def followUser():
+    followID = int(request.values['followID'])
+    id = current_user.id
+    follow(followID, id)
+    isfloowed = isfollow(followID, id)
+    return json.dumps({"code":0, "message":isfloowed})
+
+# 取消关注
+@app.route('/unfollow/', methods={'post','get'})
+@login_required
+def unfollowUser():
+    followID = int(request.values['followID'])
+    id = current_user.id
+    unfollow(followID, id)
+    isfloowed = isfollow(followID, id)
+    return json.dumps({"code":0, "message":isfloowed})
+
+# 获取关注列表
+@app.route('/following/', methods={'get'})
+@login_required
+def followings():
+    id = current_user.id
+    followings =   getfollowing(id)
+    foll = []
+    for f in followings:
+        user = User.query.filter_by(id=int(f)).first()
+        print(user)
+        foll.append(user)
+    return render_template('following.html',followings=foll)
+
+
+# 获取粉丝列表
+@app.route('/followers/', methods={'get'})
+@login_required
+def follows():
+    id = current_user.id
+    followers =  getfollowed(id)
+    foll = []
+    for f in followers:
+        user = User.query.filter_by(id=int(f)).first()
+        print(user)
+        foll.append(user)
+    return render_template('following.html',followings=foll)
