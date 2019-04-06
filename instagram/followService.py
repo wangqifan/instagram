@@ -1,41 +1,48 @@
-import redis
 from instagram import  app,db
 from instagram.models import Image
+import happybase
 
-# redis服务器的IP地址和端口号
-redis_host = app.config['REDIS_HOST']
-redis_port = app.config['REDIS_PORT']
+
+conn = happybase.Connection("127.0.0.1", 9090)
+table = conn.table("follow")
+
 
 
 # 关注功能
 def follow(followID, UserID):
-    r = redis.Redis(host=redis_host, port=redis_port, db=0)
-    r.sadd(str(followID) + "follower", UserID)
-    r.sadd(str(UserID) + "following", followID)
+    table.put(str(UserID),{"following:"+str(followID):str(followID)})
+    table.put(str(followID),{"followers:"+str(UserID):str(UserID)})
 
 # 取消关注
 def unfollow(followID, UserID):
-    r = redis.Redis(host=redis_host, port=redis_port, db=0)
-    r.srem(str(followID) + "follower", UserID)
-    r.srem(str(UserID) + "following", followID)
+    table.delete(str(UserID),{"following:"+str(followID):str(followID)})
+    table.delete(str(followID),{"followers:"+str(UserID):str(UserID)})
     
 
 # 是否关注
 def isfollow(followID, UserID):
     if followID == UserID:
         return True
-    r = redis.Redis(host=redis_host, port=redis_port, db=0)
-    return r.sismember(str(UserID) + "following", followID)
-
+    follow = table.cells(str(UserID),"following:"+str(followID))
+    return len(follow) != 0 
 
 # 获取关注列表
 def getfollowing(UserID):
-    r = redis.Redis(host=redis_host, port=redis_port, db=0)
-    return r.smembers(str(UserID) + "following")
+    result = table.scan(str(UserID),str(UserID),filter="FamilyFilter(=,'binary:following')")
+    ids = []
+    for key,value in result:
+        print(key)
+        print(value)
+        ids += value.values()
+    return ids
 
 # 获取粉丝列表
 
 def getfollowed(UserID):
-    r = redis.Redis(host=redis_host, port=redis_port, db=0)
-    return r.smembers(str(UserID) + "follower")
+    result = table.scan(str(UserID),str(UserID),filter="FamilyFilter(=,'binary:followers')")
+    ids = []
+    for key,value in result:
+        ids += value.values()
+    return ids
+
 
